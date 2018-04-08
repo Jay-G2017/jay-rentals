@@ -230,7 +230,7 @@ define("jay-rentals/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "FtwdIP+p", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"welcome-page\"],false],[0,\"\\n\"],[0,\"\\n\"],[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "P0xFMU/L", "block": "{\"symbols\":[],\"statements\":[[6,\"h1\"],[7],[0,\"Jay Super Rentals\"],[8],[0,\"\\n\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
 });
 
 
