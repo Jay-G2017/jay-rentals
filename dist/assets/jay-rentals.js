@@ -207,9 +207,49 @@ define('jay-rentals/router', ['exports', 'jay-rentals/config/environment'], func
     rootURL: _environment.default.rootURL
   });
 
-  Router.map(function () {});
+  Router.map(function () {
+    this.route('about');
+    this.route('contact');
+    this.route('rentals');
+  });
 
   exports.default = Router;
+});
+define('jay-rentals/routes/about', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({});
+});
+define('jay-rentals/routes/contact', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({});
+});
+define('jay-rentals/routes/index', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({
+    beforeModel() {
+      this.replaceWith('rentals');
+    }
+  });
+});
+define('jay-rentals/routes/rentals', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({});
 });
 define('jay-rentals/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _ajax) {
   'use strict';
@@ -224,13 +264,45 @@ define('jay-rentals/services/ajax', ['exports', 'ember-ajax/services/ajax'], fun
     }
   });
 });
+define("jay-rentals/templates/about", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "7BarC7bF", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"jumbo\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"right tomster\"],[7],[8],[0,\"\\n  \"],[6,\"h2\"],[7],[0,\"About Super Rentals\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"\\n    The Super Rentals website is a delightful project created to explore Ember.\\n    By building a property rental site, we can simultaneously imagine traveling\\n    AND building Ember applications.\\n  \"],[8],[0,\"\\n\"],[4,\"link-to\",[\"contact\"],[[\"class\"],[\"button\"]],{\"statements\":[[0,\"    Contack Us\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/about.hbs" } });
+});
 define("jay-rentals/templates/application", ["exports"], function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "P0xFMU/L", "block": "{\"symbols\":[],\"statements\":[[6,\"h1\"],[7],[0,\"Jay Super Rentals\"],[8],[0,\"\\n\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "SBXoDePg", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"menu\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"index\"],null,{\"statements\":[[0,\"      \"],[6,\"h1\"],[7],[0,\"\\n        \"],[6,\"em\"],[7],[0,\"SuperRentals\"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[6,\"div\"],[9,\"class\",\"links\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"menu-about\"]],{\"statements\":[[0,\"        About\\n\"]],\"parameters\":[]},null],[4,\"link-to\",[\"contact\"],[[\"class\"],[\"menu-contact\"]],{\"statements\":[[0,\"        Contact\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"body\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
+});
+define("jay-rentals/templates/contact", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "bXmPsTGy", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"jumbo\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"right tomster\"],[7],[8],[0,\"\\n  \"],[6,\"h2\"],[7],[0,\"Contact Us\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"Super Rentals Representatives would love to help you\"],[6,\"br\"],[7],[8],[0,\"choose a destination or answer\\n    any questions you may have.\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"\\n    Super Rentals HQ\\n    \"],[6,\"address\"],[7],[0,\"\\n      1212 Test Address Avenue\"],[6,\"br\"],[7],[8],[0,\"\\n      Testington, OR 97233\\n    \"],[8],[0,\"\\n    \"],[6,\"a\"],[9,\"href\",\"tel:503.555.1212\"],[7],[0,\"+1 (503) 555-1212\"],[8],[6,\"br\"],[7],[8],[0,\"\\n    \"],[6,\"a\"],[9,\"href\",\"mailto:superrentalsrep@emberjs.com\"],[7],[0,\"superrentalsrep@emberjs.com\"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"button\"]],{\"statements\":[[0,\"    About\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/contact.hbs" } });
+});
+define("jay-rentals/templates/index", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "irKznM86", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/index.hbs" } });
+});
+define("jay-rentals/templates/rentals", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "kMLR9QbU", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"jumbo\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"right tomster\"],[7],[8],[0,\"\\n  \"],[6,\"h2\"],[7],[0,\"Welcome!\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"We hope you find exactly what you're looking for in a place to stay.\"],[8],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"button\"]],{\"statements\":[[0,\"    About Us\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/rentals.hbs" } });
 });
 
 
@@ -254,6 +326,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+de1c5372"});
+  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+2bbde12b"});
 }
 //# sourceMappingURL=jay-rentals.map
