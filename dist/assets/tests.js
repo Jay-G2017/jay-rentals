@@ -11,21 +11,26 @@ define('jay-rentals/tests/acceptance/list-rentals-test', ['qunit', '@ember/test-
       assert.equal((0, _testHelpers.currentURL)(), '/rentals', 'should redirect automatically');
     });
 
-    (0, _qunit.test)('should link to information about the company.', async function (assert) {});
+    (0, _qunit.test)('should link to about page', async function (assert) {
+      await (0, _testHelpers.visit)('/');
+      await (0, _testHelpers.click)('.menu-about');
+      assert.equal((0, _testHelpers.currentURL)(), '/about', 'should navigate to about');
+    });
 
-    (0, _qunit.test)('should link to contact information.', async function (assert) {});
+    (0, _qunit.test)('should link to contact information.', async function (assert) {
+      await (0, _testHelpers.visit)('/');
+      await (0, _testHelpers.click)('.menu-contact');
+      assert.equal((0, _testHelpers.currentURL)(), '/contact', 'should navigate to contact page');
+    });
 
-    (0, _qunit.test)('should list available rentals.', async function (assert) {});
+    (0, _qunit.test)('should list available rentals.', async function (assert) {
+      await (0, _testHelpers.visit)('/');
+      assert.equal(this.element.querySelectorAll('.listing').length, 3, 'should display 3');
+    });
 
     (0, _qunit.test)('should filter the list of rentals by city.', async function (assert) {});
 
     (0, _qunit.test)('should show details for a selected rental', async function (assert) {});
-
-    (0, _qunit.test)('visiting /', async function (assert) {
-      await (0, _testHelpers.visit)('/');
-
-      assert.equal((0, _testHelpers.currentURL)(), '/');
-    });
   });
 });
 define('jay-rentals/tests/app.lint-test', [], function () {
@@ -82,7 +87,7 @@ define('jay-rentals/tests/tests.lint-test', [], function () {
 
   QUnit.test('acceptance/list-rentals-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'acceptance/list-rentals-test.js should pass ESLint\n\n13:73 - \'assert\' is defined but never used. (no-unused-vars)\n16:63 - \'assert\' is defined but never used. (no-unused-vars)\n19:58 - \'assert\' is defined but never used. (no-unused-vars)\n22:70 - \'assert\' is defined but never used. (no-unused-vars)\n25:69 - \'assert\' is defined but never used. (no-unused-vars)');
+    assert.ok(false, 'acceptance/list-rentals-test.js should pass ESLint\n\n30:70 - \'assert\' is defined but never used. (no-unused-vars)\n33:69 - \'assert\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('test-helper.js', function (assert) {

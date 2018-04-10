@@ -207,11 +207,7 @@ define('jay-rentals/router', ['exports', 'jay-rentals/config/environment'], func
     rootURL: _environment.default.rootURL
   });
 
-  Router.map(function () {
-    this.route('about');
-    this.route('contact');
-    this.route('rentals');
-  });
+  Router.map(function () {});
 
   exports.default = Router;
 });
@@ -249,7 +245,38 @@ define('jay-rentals/routes/rentals', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.Route.extend({});
+  exports.default = Ember.Route.extend({
+    model() {
+      return [{
+        id: 'grand-old-mansion',
+        title: 'Grand Old Mansion',
+        owner: 'Veruca Salt',
+        city: 'San Francisco',
+        category: 'Estate',
+        bedrooms: 15,
+        image: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Crane_estate_(5).jpg',
+        description: 'This grand old mansion sits on over 100 acres of rolling hills and dense redwood forests.'
+      }, {
+        id: 'urban-living',
+        title: 'Urban Living',
+        owner: 'Mike TV',
+        city: 'Seattle',
+        category: 'Condo',
+        bedrooms: 1,
+        image: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Alfonso_13_Highrise_Tegucigalpa.jpg',
+        description: 'A commuters dream. This rental is within walking distance of 2 bus stops and the Metro.'
+      }, {
+        id: 'downtown-charm',
+        title: 'Downtown Charm',
+        owner: 'Violet Beauregarde',
+        city: 'Portland',
+        category: 'Apartment',
+        bedrooms: 3,
+        image: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg',
+        description: 'Convenience is at your doorstep with this charming downtown rental. Great restaurants and active night life are within a few feet.'
+      }];
+    }
+  });
 });
 define('jay-rentals/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _ajax) {
   'use strict';
@@ -278,7 +305,7 @@ define("jay-rentals/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "SBXoDePg", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"menu\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"index\"],null,{\"statements\":[[0,\"      \"],[6,\"h1\"],[7],[0,\"\\n        \"],[6,\"em\"],[7],[0,\"SuperRentals\"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[6,\"div\"],[9,\"class\",\"links\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"menu-about\"]],{\"statements\":[[0,\"        About\\n\"]],\"parameters\":[]},null],[4,\"link-to\",[\"contact\"],[[\"class\"],[\"menu-contact\"]],{\"statements\":[[0,\"        Contact\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"body\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "FtwdIP+p", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"welcome-page\"],false],[0,\"\\n\"],[0,\"\\n\"],[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
 });
 define("jay-rentals/templates/contact", ["exports"], function (exports) {
   "use strict";
@@ -302,7 +329,7 @@ define("jay-rentals/templates/rentals", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "kMLR9QbU", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"jumbo\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"right tomster\"],[7],[8],[0,\"\\n  \"],[6,\"h2\"],[7],[0,\"Welcome!\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"We hope you find exactly what you're looking for in a place to stay.\"],[8],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"button\"]],{\"statements\":[[0,\"    About Us\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/rentals.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "uheHSjUN", "block": "{\"symbols\":[\"rental\"],\"statements\":[[6,\"div\"],[9,\"class\",\"jumbo\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"right tomster\"],[7],[8],[0,\"\\n  \"],[6,\"h2\"],[7],[0,\"Welcome!\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"We hope you find exactly what you're looking for in a place to stay.\"],[8],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"button\"]],{\"statements\":[[0,\"    About Us\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\\n\"],[4,\"each\",[[20,[\"model\"]]],null,{\"statements\":[[0,\"  \"],[6,\"article\"],[9,\"class\",\"listing\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[1,[19,1,[\"title\"]],false],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail owner\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Owner:\"],[8],[0,\" \"],[1,[19,1,[\"owner\"]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail type\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Type:\"],[8],[0,\" \"],[1,[19,1,[\"category\"]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail location\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Location:\"],[8],[0,\" \"],[1,[19,1,[\"city\"]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail bedrooms\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Number of bedrooms:\"],[8],[0,\" \"],[1,[19,1,[\"bedrooms\"]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/rentals.hbs" } });
 });
 
 
@@ -326,6 +353,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+2bbde12b"});
+  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+b5d42a8e"});
 }
 //# sourceMappingURL=jay-rentals.map
