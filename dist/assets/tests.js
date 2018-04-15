@@ -38,6 +38,11 @@ define('jay-rentals/tests/app.lint-test', [], function () {
 
   QUnit.module('ESLint | app');
 
+  QUnit.test('adapters/application.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'adapters/application.js should pass ESLint\n\n');
+  });
+
   QUnit.test('app.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'app.js should pass ESLint\n\n');
@@ -95,6 +100,11 @@ define('jay-rentals/tests/tests.lint-test', [], function () {
     assert.ok(true, 'test-helper.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/adapters/application-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/adapters/application-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/routes/about-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/about-test.js should pass ESLint\n\n');
@@ -113,6 +123,19 @@ define('jay-rentals/tests/tests.lint-test', [], function () {
   QUnit.test('unit/routes/rentals-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/rentals-test.js should pass ESLint\n\n');
+  });
+});
+define('jay-rentals/tests/unit/adapters/application-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Adapter | application', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+
+    // Replace this with your real tests.
+    (0, _qunit.test)('it exists', function (assert) {
+      let adapter = this.owner.lookup('adapter:application');
+      assert.ok(adapter);
+    });
   });
 });
 define('jay-rentals/tests/unit/routes/about-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {

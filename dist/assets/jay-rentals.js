@@ -2,6 +2,16 @@
 
 
 
+define('jay-rentals/adapters/application', ['exports', 'ember-data'], function (exports, _emberData) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.JSONAPIAdapter.extend({
+    namespace: 'api'
+  });
+});
 define('jay-rentals/app', ['exports', 'jay-rentals/resolver', 'ember-load-initializers', 'jay-rentals/config/environment'], function (exports, _resolver, _emberLoadInitializers, _environment) {
   'use strict';
 
@@ -207,7 +217,11 @@ define('jay-rentals/router', ['exports', 'jay-rentals/config/environment'], func
     rootURL: _environment.default.rootURL
   });
 
-  Router.map(function () {});
+  Router.map(function () {
+    this.route('about');
+    this.route('contact');
+    this.route('rentals');
+  });
 
   exports.default = Router;
 });
@@ -305,7 +319,7 @@ define("jay-rentals/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "FtwdIP+p", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"welcome-page\"],false],[0,\"\\n\"],[0,\"\\n\"],[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "pUwH6WXk", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"menu\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"index\"],null,{\"statements\":[[0,\"      \"],[6,\"h1\"],[7],[0,\"\\n        \"],[6,\"em\"],[7],[0,\"SuperRentals\"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[6,\"div\"],[9,\"class\",\"links\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"menu-about\"]],{\"statements\":[[0,\"        About\\n\"]],\"parameters\":[]},null],[4,\"link-to\",[\"contact\"],[[\"class\"],[\"menu-contact\"]],{\"statements\":[[0,\"        Contact\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"body\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
 });
 define("jay-rentals/templates/contact", ["exports"], function (exports) {
   "use strict";
@@ -353,6 +367,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+b5d42a8e"});
+  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+e47bf8d6"});
 }
 //# sourceMappingURL=jay-rentals.map

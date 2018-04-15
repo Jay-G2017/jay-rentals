@@ -7,7 +7,7 @@ export default function() {
         type: 'rentals',
         id: 'grand-old-mansion',
         attributes: {
-          title: 'Grand Old Mansion mirage',
+          title: 'Grand Old Mansion',
           owner: 'Veruca Salt',
           city: 'San Francisco',
           category: 'Estate',
@@ -18,7 +18,7 @@ export default function() {
         type: 'rentals',
         id: 'urban-living',
         attributes: {
-          title: 'Urban Living mirage',
+          title: 'Urban Living',
           owner: 'Mike Teavee',
           city: 'Seattle',
           category: 'Condo',
@@ -29,7 +29,7 @@ export default function() {
         type: 'rentals',
         id: 'downtown-charm',
         attributes: {
-          title: 'Downtown Charm mirage',
+          title: 'Downtown Charm',
           owner: 'Violet Beauregarde',
           city: 'Portland',
           category: 'Apartment',
