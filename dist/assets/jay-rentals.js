@@ -30,6 +30,21 @@ define('jay-rentals/app', ['exports', 'jay-rentals/resolver', 'ember-load-initia
 
   exports.default = App;
 });
+define('jay-rentals/components/rental-listing', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Component.extend({
+    isWide: false,
+    actions: {
+      toggleImageSize() {
+        this.toggleProperty('isWide');
+      }
+    }
+  });
+});
 define('jay-rentals/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _welcomePage) {
   'use strict';
 
@@ -124,6 +139,57 @@ define('jay-rentals/initializers/container-debug-adapter', ['exports', 'ember-re
     }
   };
 });
+define('jay-rentals/initializers/ember-cli-mirage', ['exports', 'jay-rentals/config/environment', 'jay-rentals/mirage/config', 'ember-cli-mirage/get-rfc232-test-context', 'ember-cli-mirage/start-mirage'], function (exports, _environment, _config, _getRfc232TestContext, _startMirage) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.startMirage = startMirage;
+  exports.default = {
+    name: 'ember-cli-mirage-config',
+    initialize(application) {
+      if (_config.default) {
+        application.register('mirage:base-config', _config.default, { instantiate: false });
+      }
+      if (_config.testConfig) {
+        application.register('mirage:test-config', _config.testConfig, { instantiate: false });
+      }
+
+      _environment.default['ember-cli-mirage'] = _environment.default['ember-cli-mirage'] || {};
+      if (_shouldUseMirage(_environment.default.environment, _environment.default['ember-cli-mirage'])) {
+        startMirage(_environment.default);
+      }
+    }
+  };
+  function startMirage(env = _environment.default) {
+    return (0, _startMirage.default)(null, { env, baseConfig: _config.default, testConfig: _config.testConfig });
+  }
+
+  function _shouldUseMirage(env, addonConfig) {
+    if (typeof FastBoot !== 'undefined') {
+      return false;
+    }
+    if ((0, _getRfc232TestContext.default)()) {
+      return false;
+    }
+    let userDeclaredEnabled = typeof addonConfig.enabled !== 'undefined';
+    let defaultEnabled = _defaultEnabled(env, addonConfig);
+
+    return userDeclaredEnabled ? addonConfig.enabled : defaultEnabled;
+  }
+
+  /*
+    Returns a boolean specifying the default behavior for whether
+    to initialize Mirage.
+  */
+  function _defaultEnabled(env, addonConfig) {
+    let usingInDev = env === 'development' && !addonConfig.usingProxy;
+    let usingInTest = env === 'test';
+
+    return usingInDev || usingInTest;
+  }
+});
 define('jay-rentals/initializers/ember-data', ['exports', 'ember-data/setup-container', 'ember-data'], function (exports, _setupContainer) {
   'use strict';
 
@@ -185,6 +251,19 @@ define('jay-rentals/initializers/export-application-global', ['exports', 'jay-re
     initialize: initialize
   };
 });
+define('jay-rentals/instance-initializers/ember-cli-mirage-autostart', ['exports', 'ember-cli-mirage/instance-initializers/ember-cli-mirage-autostart'], function (exports, _emberCliMirageAutostart) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _emberCliMirageAutostart.default;
+    }
+  });
+});
 define("jay-rentals/instance-initializers/ember-data", ["exports", "ember-data/initialize-store-service"], function (exports, _initializeStoreService) {
   "use strict";
 
@@ -195,6 +274,81 @@ define("jay-rentals/instance-initializers/ember-data", ["exports", "ember-data/i
     name: "ember-data",
     initialize: _initializeStoreService.default
   };
+});
+define('jay-rentals/mirage/config', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  exports.default = function () {
+    this.namespace = '/api';
+
+    this.get('/rentals', function () {
+      return {
+        data: [{
+          type: 'rentals',
+          id: 'grand-old-mansion',
+          attributes: {
+            title: 'Grand Old Mansion',
+            owner: 'Veruca Salt',
+            city: 'San Francisco',
+            category: 'Estate',
+            bedrooms: 15,
+            image: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Crane_estate_(5).jpg'
+          }
+        }, {
+          type: 'rentals',
+          id: 'urban-living',
+          attributes: {
+            title: 'Urban Living',
+            owner: 'Mike Teavee',
+            city: 'Seattle',
+            category: 'Condo',
+            bedrooms: 1,
+            image: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Alfonso_13_Highrise_Tegucigalpa.jpg'
+          }
+        }, {
+          type: 'rentals',
+          id: 'downtown-charm',
+          attributes: {
+            title: 'Downtown Charm',
+            owner: 'Violet Beauregarde',
+            city: 'Portland',
+            category: 'Apartment',
+            bedrooms: 3,
+            image: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg'
+          }
+        }]
+      };
+    });
+  };
+});
+define("jay-rentals/mirage/scenarios/default", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  exports.default = function () /* server */{
+
+    /*
+      Seed your development database using your factories.
+      This data will not be loaded in your tests.
+    */
+
+    // server.createList('post', 10);
+  };
+});
+define('jay-rentals/mirage/serializers/application', ['exports', 'ember-cli-mirage'], function (exports, _emberCliMirage) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberCliMirage.JSONAPISerializer.extend({});
 });
 define('jay-rentals/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
   'use strict';
@@ -321,6 +475,14 @@ define("jay-rentals/templates/application", ["exports"], function (exports) {
   });
   exports.default = Ember.HTMLBars.template({ "id": "pUwH6WXk", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"menu\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"index\"],null,{\"statements\":[[0,\"      \"],[6,\"h1\"],[7],[0,\"\\n        \"],[6,\"em\"],[7],[0,\"SuperRentals\"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[6,\"div\"],[9,\"class\",\"links\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"menu-about\"]],{\"statements\":[[0,\"        About\\n\"]],\"parameters\":[]},null],[4,\"link-to\",[\"contact\"],[[\"class\"],[\"menu-contact\"]],{\"statements\":[[0,\"        Contact\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"body\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/application.hbs" } });
 });
+define("jay-rentals/templates/components/rental-listing", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "97+N383Z", "block": "{\"symbols\":[],\"statements\":[[6,\"article\"],[9,\"class\",\"listing\"],[7],[0,\"\\n  \"],[6,\"a\"],[10,\"class\",[26,[\"image \",[25,\"if\",[[20,[\"isWide\"]],\"wide\"],null]]]],[3,\"action\",[[19,0,[]],\"toggleImageSize\"]],[7],[0,\"\\n    \"],[6,\"img\"],[10,\"src\",[26,[[20,[\"rental\",\"image\"]]]]],[9,\"alt\",\"\"],[7],[8],[0,\"\\n    \"],[6,\"small\"],[7],[0,\"View Larger\"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"h3\"],[7],[1,[20,[\"rental\",\"title\"]],false],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail owner\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Owner:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"owner\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail type\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Type:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"category\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail location\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Location:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"city\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail bedrooms\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Number of bedrooms:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"bedrooms\"]],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/components/rental-listing.hbs" } });
+});
 define("jay-rentals/templates/contact", ["exports"], function (exports) {
   "use strict";
 
@@ -343,7 +505,27 @@ define("jay-rentals/templates/rentals", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "uheHSjUN", "block": "{\"symbols\":[\"rental\"],\"statements\":[[6,\"div\"],[9,\"class\",\"jumbo\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"right tomster\"],[7],[8],[0,\"\\n  \"],[6,\"h2\"],[7],[0,\"Welcome!\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"We hope you find exactly what you're looking for in a place to stay.\"],[8],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"button\"]],{\"statements\":[[0,\"    About Us\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\\n\"],[4,\"each\",[[20,[\"model\"]]],null,{\"statements\":[[0,\"  \"],[6,\"article\"],[9,\"class\",\"listing\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[1,[19,1,[\"title\"]],false],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail owner\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Owner:\"],[8],[0,\" \"],[1,[19,1,[\"owner\"]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail type\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Type:\"],[8],[0,\" \"],[1,[19,1,[\"category\"]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail location\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Location:\"],[8],[0,\" \"],[1,[19,1,[\"city\"]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"detail bedrooms\"],[7],[0,\"\\n      \"],[6,\"span\"],[7],[0,\"Number of bedrooms:\"],[8],[0,\" \"],[1,[19,1,[\"bedrooms\"]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/rentals.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "KZlSiByj", "block": "{\"symbols\":[\"rentalUnit\"],\"statements\":[[6,\"div\"],[9,\"class\",\"jumbo\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"right tomster\"],[7],[8],[0,\"\\n  \"],[6,\"h2\"],[7],[0,\"Welcome!\"],[8],[0,\"\\n  \"],[6,\"p\"],[7],[0,\"We hope you find exactly what you're looking for in a place to stay.\"],[8],[0,\"\\n\"],[4,\"link-to\",[\"about\"],[[\"class\"],[\"button\"]],{\"statements\":[[0,\"    About Us\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\\n\"],[4,\"each\",[[20,[\"model\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"rental-listing\",null,[[\"rental\"],[[19,1,[]]]]],false],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/rentals.hbs" } });
+});
+define('jay-rentals/tests/mirage/mirage.lint-test', [], function () {
+  'use strict';
+
+  QUnit.module('ESLint | mirage');
+
+  QUnit.test('mirage/config.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mirage/config.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('mirage/scenarios/default.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mirage/scenarios/default.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('mirage/serializers/application.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mirage/serializers/application.js should pass ESLint\n\n');
+  });
 });
 
 
@@ -367,6 +549,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+e47bf8d6"});
+  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+b81d5a39"});
 }
 //# sourceMappingURL=jay-rentals.map

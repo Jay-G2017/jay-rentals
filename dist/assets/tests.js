@@ -48,6 +48,11 @@ define('jay-rentals/tests/app.lint-test', [], function () {
     assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/rental-listing.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/rental-listing.js should pass ESLint\n\n');
+  });
+
   QUnit.test('resolver.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'resolver.js should pass ESLint\n\n');
@@ -78,6 +83,46 @@ define('jay-rentals/tests/app.lint-test', [], function () {
     assert.ok(true, 'routes/rentals.js should pass ESLint\n\n');
   });
 });
+define('jay-rentals/tests/integration/components/rental-listing-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | rental-listing', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    hooks.beforeEach(function () {
+      this.rental = Ember.Object.create({
+        image: 'fake.png',
+        title: 'test-title',
+        owner: 'test-owner',
+        type: 'test-type',
+        city: 'test-city',
+        bedrooms: 3
+      });
+    });
+
+    (0, _qunit.test)('should display rental details', async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "j/7Zc6v/",
+        "block": "{\"symbols\":[],\"statements\":[[1,[25,\"rental-listing\",null,[[\"rental\"],[[20,[\"rental\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+      assert.equal(this.$('.listing h3').text(), 'test-title', 'Title: test-title');
+      assert.equal(this.$('.listing .owner').text().trim(), 'Owner: test-owner', 'Owner: test-owner');
+    });
+
+    (0, _qunit.test)('should toggle wide class on click', async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "j/7Zc6v/",
+        "block": "{\"symbols\":[],\"statements\":[[1,[25,\"rental-listing\",null,[[\"rental\"],[[20,[\"rental\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+      assert.notOk(this.element.querySelector('.image.wide'), 'initially rendered small');
+      await (0, _testHelpers.click)('.image');
+      assert.ok(this.element.querySelector('.image.wide'), 'rendered wide after click');
+      await (0, _testHelpers.click)('.image');
+      assert.notOk(this.element.querySelector('.image.wide'), 'rendered small after second click');
+    });
+  });
+});
 define('jay-rentals/tests/test-helper', ['jay-rentals/app', 'jay-rentals/config/environment', '@ember/test-helpers', 'ember-qunit'], function (_app, _environment, _testHelpers, _emberQunit) {
   'use strict';
 
@@ -93,6 +138,11 @@ define('jay-rentals/tests/tests.lint-test', [], function () {
   QUnit.test('acceptance/list-rentals-test.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'acceptance/list-rentals-test.js should pass ESLint\n\n30:70 - \'assert\' is defined but never used. (no-unused-vars)\n33:69 - \'assert\' is defined but never used. (no-unused-vars)');
+  });
+
+  QUnit.test('integration/components/rental-listing-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/rental-listing-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('test-helper.js', function (assert) {
