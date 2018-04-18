@@ -95,6 +95,27 @@ define('jay-rentals/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers
   });
   exports.default = _pluralize.default;
 });
+define('jay-rentals/helpers/rental-property-type', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.rentalPropertyType = rentalPropertyType;
+
+
+  const communityPropertyTypes = ['Condo', 'Townhouse', 'Apartment'];
+
+  function rentalPropertyType([propertyType]) {
+    if (communityPropertyTypes.includes(propertyType)) {
+      return 'Community';
+    }
+
+    return 'Standalone';
+  }
+
+  exports.default = Ember.Helper.helper(rentalPropertyType);
+});
 define('jay-rentals/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _singularize) {
   'use strict';
 
@@ -481,7 +502,7 @@ define("jay-rentals/templates/components/rental-listing", ["exports"], function 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "97+N383Z", "block": "{\"symbols\":[],\"statements\":[[6,\"article\"],[9,\"class\",\"listing\"],[7],[0,\"\\n  \"],[6,\"a\"],[10,\"class\",[26,[\"image \",[25,\"if\",[[20,[\"isWide\"]],\"wide\"],null]]]],[3,\"action\",[[19,0,[]],\"toggleImageSize\"]],[7],[0,\"\\n    \"],[6,\"img\"],[10,\"src\",[26,[[20,[\"rental\",\"image\"]]]]],[9,\"alt\",\"\"],[7],[8],[0,\"\\n    \"],[6,\"small\"],[7],[0,\"View Larger\"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"h3\"],[7],[1,[20,[\"rental\",\"title\"]],false],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail owner\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Owner:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"owner\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail type\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Type:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"category\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail location\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Location:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"city\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail bedrooms\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Number of bedrooms:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"bedrooms\"]],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/components/rental-listing.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "qH+nkvqs", "block": "{\"symbols\":[],\"statements\":[[6,\"article\"],[9,\"class\",\"listing\"],[7],[0,\"\\n  \"],[6,\"a\"],[10,\"class\",[26,[\"image \",[25,\"if\",[[20,[\"isWide\"]],\"wide\"],null]]]],[3,\"action\",[[19,0,[]],\"toggleImageSize\"]],[7],[0,\"\\n    \"],[6,\"img\"],[10,\"src\",[26,[[20,[\"rental\",\"image\"]]]]],[9,\"alt\",\"\"],[7],[8],[0,\"\\n    \"],[6,\"small\"],[7],[0,\"View Larger\"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"h3\"],[7],[1,[20,[\"rental\",\"title\"]],false],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail owner\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Owner:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"owner\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail type\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Type:\"],[8],[0,\" \"],[1,[25,\"rental-property-type\",[[20,[\"rental\",\"category\"]]],null],false],[0,\"\\n      -- \"],[1,[20,[\"rental\",\"category\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail location\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Location:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"city\"]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"detail bedrooms\"],[7],[0,\"\\n    \"],[6,\"span\"],[7],[0,\"Number of bedrooms:\"],[8],[0,\" \"],[1,[20,[\"rental\",\"bedrooms\"]],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "jay-rentals/templates/components/rental-listing.hbs" } });
 });
 define("jay-rentals/templates/contact", ["exports"], function (exports) {
   "use strict";
@@ -549,6 +570,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+b81d5a39"});
+  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+54559c57"});
 }
 //# sourceMappingURL=jay-rentals.map

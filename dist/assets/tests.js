@@ -53,6 +53,11 @@ define('jay-rentals/tests/app.lint-test', [], function () {
     assert.ok(true, 'components/rental-listing.js should pass ESLint\n\n');
   });
 
+  QUnit.test('helpers/rental-property-type.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/rental-property-type.js should pass ESLint\n\n');
+  });
+
   QUnit.test('resolver.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'resolver.js should pass ESLint\n\n');
@@ -123,6 +128,38 @@ define('jay-rentals/tests/integration/components/rental-listing-test', ['qunit',
     });
   });
 });
+define('jay-rentals/tests/integration/helpers/rental-property-type-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Helper | rental-property-type', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    // Replace this with your real tests.
+    (0, _qunit.test)('it renders correctly for a standalone rental', async function (assert) {
+      this.set('inputValue', 'Estate');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "gQNRj/sG",
+        "block": "{\"symbols\":[],\"statements\":[[1,[25,\"rental-property-type\",[[20,[\"inputValue\"]]],null],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'Standalone');
+    });
+
+    (0, _qunit.test)('it renders correctly for a community rental', async function (assert) {
+      this.set('inputValue', 'Condo');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "gQNRj/sG",
+        "block": "{\"symbols\":[],\"statements\":[[1,[25,\"rental-property-type\",[[20,[\"inputValue\"]]],null],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'Community');
+    });
+  });
+});
 define('jay-rentals/tests/test-helper', ['jay-rentals/app', 'jay-rentals/config/environment', '@ember/test-helpers', 'ember-qunit'], function (_app, _environment, _testHelpers, _emberQunit) {
   'use strict';
 
@@ -143,6 +180,11 @@ define('jay-rentals/tests/tests.lint-test', [], function () {
   QUnit.test('integration/components/rental-listing-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/rental-listing-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/helpers/rental-property-type-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/helpers/rental-property-type-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('test-helper.js', function (assert) {
