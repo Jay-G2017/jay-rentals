@@ -168,7 +168,7 @@ define('jay-rentals/initializers/ember-cli-mirage', ['exports', 'jay-rentals/con
   });
   exports.startMirage = startMirage;
   exports.default = {
-    name: 'ember-cli-mirage-config',
+    name: 'ember-cli-mirage',
     initialize(application) {
       if (_config.default) {
         application.register('mirage:base-config', _config.default, { instantiate: false });
@@ -570,6 +570,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+54559c57"});
+  require("jay-rentals/app")["default"].create({"name":"jay-rentals","version":"0.0.0+c374f176"});
 }
 //# sourceMappingURL=jay-rentals.map
